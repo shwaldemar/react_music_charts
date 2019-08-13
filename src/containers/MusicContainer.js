@@ -1,4 +1,5 @@
 import React from 'react';
+import MusicSelector from '../components/MusicSelector';
 
 class MusicContainer extends React.Component {
   constructor(props){
@@ -12,7 +13,7 @@ class MusicContainer extends React.Component {
     const url = 'https://itunes.apple.com/gb/rss/topsongs/limit=20/json';
       fetch(url)
         .then(res => res.json())
-        .then(tunes => this.setState({ tunes: tunes}))
+        .then(tunes => this.setState({tunes: tunes["feed"]["entry"]}))
         .catch(err => console.error);
   }
 
@@ -20,6 +21,7 @@ class MusicContainer extends React.Component {
     return (
       <div>
         <h2>Music Charts</h2>
+        <MusicSelector tunes={this.state.tunes}/>
       </div>
     )
   }
